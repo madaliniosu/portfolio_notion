@@ -1,3 +1,6 @@
+Contact form with RESEND
+Landing page Home + separate page for CV with the posibility to download it 
+
 # Astro Starter Kit: Minimal
 
 ```sh

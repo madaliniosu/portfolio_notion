@@ -1,18 +1,25 @@
 ---
-import '../styles/global.css'
+import "../styles/global.css";
 const { title } = Astro.props;
+const path = Astro.url.pathname;
 ---
 
 <html lang="en">
-	<head>
+    <head>
         <meta charset="utf-8" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="icon" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width" />
         <meta name="generator" content={Astro.generator} />
         <title>{title}</title>
-	</head>
-	<body>
-		<slot/>
-	</body>
+    </head>
+    <body>
+        <nav >
+            <a href="/" class={path === "/" ? "font-bold" : "text-gray-500"}
+                >Home</a
+            >
+            <a href="/cv" class={path === '/cv' ? 'font-bold' : 'text-gray-500'}>CV</a>
+        </nav>
+        <slot />
+    </body>
 </html>

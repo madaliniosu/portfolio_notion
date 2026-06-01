@@ -1,5 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { getProjects, mapProject } from "../lib/notion";
+const rawProjects = await getProjects();
+const projects = rawProjects.map(mapProject);
 ---
 
 <BaseLayout title="My Portfolio">
@@ -16,12 +19,27 @@ import BaseLayout from "../layouts/BaseLayout.astro";
             management, then taught myself to code and made the switch to
             engineering. That background means I think about products, not just
             components — I understand why a feature exists before I build it. I
-            work primarily with Angular and React / Next.js, and I'm
-            comfortable across the full stack: auth, payments, APIs, databases.
-            I build things for real users, not just demos. Open to remote roles
-            in frontend development, AI-assisted product engineering, or
-            anything that sits at the intersection of code and product thinking.
+            work primarily with Angular and React / Next.js, and I'm comfortable
+            across the full stack: auth, payments, APIs, databases. I build
+            things for real users, not just demos. Open to remote roles in
+            frontend development, AI-assisted product engineering, or anything
+            that sits at the intersection of code and product thinking.
         </p>
+    </section>
+
+    <section>
+        <h2>Projects</h2>
+        {
+            projects.map((project: any) => (
+                <div>
+                    <a href={project.url} target="_blank" rel="noopener noreferrer">
+                        {project.name}
+                    </a>
+                    <p>{project.description}</p>
+                    <p>{project.tech.join(", ")}</p>
+                </div>
+            ))
+        }
     </section>
     <section>
         <a
@@ -30,16 +48,21 @@ import BaseLayout from "../layouts/BaseLayout.astro";
             rel="noopener noreferrer"
             class="text-blue-500 hover:underline">GitHub</a
         >
-		<a
-			href="https://www.linkedin.com/in/madaliniosu/"
-			target="_blank"
-			rel="noopener noreferrer"
-			class="text-blue-500 hover:underline ml-4">LinkedIn</a>
-		<a
-			href="/cv"
-			target="_blank"
-			rel="noopener noreferrer"
-			class="text-blue-500 hover:underline ml-4">Resume</a>
-		<a href="mailto:iosu.gm@gmail.com" class="text-blue-500 hover:underline ml-4">Email</a>
+        <a
+            href="https://www.linkedin.com/in/madaliniosu/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-blue-500 hover:underline ml-4">LinkedIn</a
+        >
+        <a
+            href="/cv"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-blue-500 hover:underline ml-4">Resume</a
+        >
+        <a
+            href="mailto:iosu.gm@gmail.com"
+            class="text-blue-500 hover:underline ml-4">Email</a
+        >
     </section>
 </BaseLayout>

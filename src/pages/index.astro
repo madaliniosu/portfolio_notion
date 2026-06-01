@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import CareerJourney from "../components/CareerJourney.astro";
 import { getProjects, mapProject } from "../lib/notion";
 const rawProjects = await getProjects();
 const projects = rawProjects.map(mapProject);
@@ -26,6 +27,8 @@ const projects = rawProjects.map(mapProject);
             that sits at the intersection of code and product thinking.
         </p>
     </section>
+
+    <CareerJourney />
 
     <section>
         <h2>Projects</h2>

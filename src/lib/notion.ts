@@ -1,5 +1,6 @@
 import { Client } from '@notionhq/client';
 
+
 const notion = new Client({ auth: import.meta.env.NOTION_TOKEN });
 
 async function getDataSourceId(database_id: string): Promise<string> {
@@ -11,7 +12,7 @@ async function getDataSourceId(database_id: string): Promise<string> {
 }
 
 export async function getProjects() {
-  const dataSourceId = await getDataSourceId(import.meta.env.NOTION_PROJECTS_DB);
+  const dataSourceId = await getDataSourceId(import.meta.env.NOTION_DATABASE_ID);
   const response = await notion.dataSources.query({
     data_source_id: dataSourceId,
     filter: {
@@ -22,11 +23,11 @@ export async function getProjects() {
   return response.results;
 }
 
-export function mapProject(restult: any){
+export function mapProject(result: any){
   return {
-    name : restult.properties?.Name?.title?.[0]?.plain_text || '',
-    description: restult.properties?.Description?.rich_text?.[0]?.plain_text || '',
-    url: restult.properties?.URL?.url || '',
-    tech: restult.properties?.Tech?.multi_select?.map((t: any) => t.name) || [],
+    name : result.properties?.Name?.title?.[0]?.plain_text || '',
+    description: result.properties?.Description?.rich_text?.[0]?.plain_text || '',
+    url: result.properties?.URL?.url || '',
+    tech: result.properties?.Tech?.multi_select?.map((t: any) => t.name) || [],
   }
 }

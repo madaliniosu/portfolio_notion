@@ -1,21 +1,29 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+const thankYouDuration = parseInt(import.meta.env.THANK_YOU_DURATION) || 7;
 ---
+
 <BaseLayout title="Thank you">
     <section>
         <h2>Message sent!</h2>
         <p>Thanks for reaching out. I'll get back to you soon.</p>
-        <p>Redirecting you back in <span id="countdown">10</span> seconds...</p>
+        <p>
+            Redirecting you back in <span id="countdown"
+                >{thankYouDuration}</span
+            > seconds...
+        </p>
     </section>
     <script>
-        let seconds = 5;
-        const countdown = document.getElementById('countdown');
+        const thankYouDuration =
+            parseInt(import.meta.env.THANK_YOU_DURATION) || 7;
+        let seconds = thankYouDuration;
+        const countdown = document.getElementById("countdown");
         const interval = setInterval(() => {
             seconds--;
             if (countdown) countdown.textContent = String(seconds);
             if (seconds <= 0) {
                 clearInterval(interval);
-                window.location.href = '/';
+                window.location.href = "/";
             }
         }, 1000);
     </script>

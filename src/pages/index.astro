@@ -2,17 +2,31 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import CareerJourney from "../components/CareerJourney.astro";
 import { getProjects, mapProject } from "../lib/notion";
-const rawProjects = await getProjects();
-const projects = rawProjects.map(mapProject);
+
+let projects: {
+    name: string;
+    description: string;
+    github: string;
+    live: string;
+    tech: string[];
+}[] = [];
+
+try {
+    const rawProjects = await getProjects();
+    projects = rawProjects.map(mapProject);
+} catch (e) {
+    console.error("Failed to fetch projects from Notion:", e);
+}
 ---
 
 <BaseLayout title="My Portfolio">
-    <section>
-        <h2 class="text-xl font-bold">Madalin Iosu</h2>
-        <p class="text-gray-500">
-            Frontend Developer · Product thinker · Remote from Spain
-        </p>
-        <p>
+    <section id="about" class="mb-24">
+        <h2
+            class="text-sm font-bold uppercase tracking-widest text-accent mb-6"
+        >
+            About
+        </h2>
+        <p class="text-muted leading-relaxed">
             I'm a frontend developer based in Pego, Spain — building clean,
             functional web applications with a strong eye for design and a
             product mindset built over years of owning a roadmap end-to-end. My
@@ -28,67 +42,112 @@ const projects = rawProjects.map(mapProject);
         </p>
     </section>
 
-    <CareerJourney />
+    <section id="career" class="mb-24">
+        <h2
+            class="text-sm font-bold uppercase tracking-widest text-accent mb-6"
+        >
+            Career
+        </h2>
+        <CareerJourney />
+    </section>
 
-    <section>
-        <h2>Projects</h2>
-        {
-            projects.map((project: any) => (
-                <div>
-                    <a
-                        href={project.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        {project.name}
-                    </a>
-                    <p>{project.description}</p>
-                    <p>{project.tech.join(", ")}</p>
-                </div>
-            ))
-        }
+    <section id="projects" class="mb-24">
+        <h2
+            class="text-sm font-bold uppercase tracking-widest text-accent mb-6"
+        >
+            Projects
+        </h2>
+        <div class="flex flex-col gap-6">
+            {
+                projects.map((project) =>
+                    project.live ? (
+                        <a
+                            href={project.live}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="block border border-navy-light rounded-lg p-5 hover:border-accent transition-colors duration-200"
+                        >
+                            <span class="font-semibold text-text">
+                                {project.name}
+                            </span>
+                            <p class="text-muted text-sm mt-2 leading-relaxed">
+                                {project.description}
+                            </p>
+                            {project.tech.length > 0 && (
+                                <div class="flex flex-wrap gap-2 mt-3">
+                                    {project.tech.map((t) => (
+                                        <span class="text-xs text-accent border border-accent/30 rounded-full px-3 py-1">
+                                            {t}
+                                        </span>
+                                    ))}
+                                </div>
+                            )}
+                        </a>
+                    ) : (
+                        <div class="border border-navy-light rounded-lg p-5">
+                            <span class="font-semibold text-text">
+                                {project.name}
+                            </span>
+                            <p class="text-muted text-sm mt-2 leading-relaxed">
+                                {project.description}
+                            </p>
+                            {project.tech.length > 0 && (
+                                <div class="flex flex-wrap gap-2 mt-3">
+                                    {project.tech.map((t) => (
+                                        <span class="text-xs text-accent border border-accent/30 rounded-full px-3 py-1">
+                                            {t}
+                                        </span>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                    ),
+                )
+            }
+        </div>
     </section>
-    <section>
-        <h2>Contact</h2>
-        <form name="portfolio-contact" method="POST" data-netlify="true" action="/thank-you">
+
+    <section id="contact" class="mb-24">
+        <h2
+            class="text-sm font-bold uppercase tracking-widest text-accent mb-6"
+        >
+            Contact
+        </h2>
+        <form
+            name="portfolio-contact"
+            method="POST"
+            data-netlify="true"
+            action="/thank-you"
+            class="flex flex-col gap-4"
+        >
             <input type="hidden" name="form-name" value="portfolio-contact" />
-            <label>
-                Name
-                <input type="text" name="name" required />
-            </label>
-            <label>
-                Email
-                <input type="email" name="email" required />
-            </label>
-            <label>
-                Message
-                <textarea name="message" required></textarea>
-            </label>
-            <button type="submit">Send</button>
+            <input
+                type="text"
+                name="name"
+                placeholder="Name"
+                required
+                class="bg-navy-light border border-navy-light rounded-lg px-4 py-3 text-text placeholder:text-muted focus:outline-none focus:border-accent transition-colors"
+            />
+            <input
+                type="email"
+                name="email"
+                placeholder="Email"
+                required
+                class="bg-navy-light border border-navy-light rounded-lg px-4 py-3 text-text placeholder:text-muted focus:outline-none focus:border-accent transition-colors"
+            />
+            <textarea
+                name="message"
+                placeholder="Message"
+                required
+                rows="5"
+                class="bg-navy-light border border-navy-light rounded-lg px-4 py-3 text-text placeholder:text-muted focus:outline-none focus:border-accent transition-colors resize-none"
+            ></textarea>
+            <button
+                type="submit"
+                class="self-start border border-accent text-accent px-6 py-2 rounded-lg hover:bg-accent hover:text-navy transition-colors"
+            >
+                Send
+            </button>
         </form>
-    </section>
-    <section>
-        <a
-            href="https://github.com/madaliniosu"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-blue-500 hover:underline">GitHub</a
-        >
-        <a
-            href="https://www.linkedin.com/in/madaliniosu/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-blue-500 hover:underline ml-4">LinkedIn</a
-        >
-        <a
-            href="/cv"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-blue-500 hover:underline ml-4">Resume</a
-        >
-        <a
-            href="mailto:iosu.gm@gmail.com"
-            class="text-blue-500 hover:underline ml-4">Email</a
-        >
     </section>
 </BaseLayout>

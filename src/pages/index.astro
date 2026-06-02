@@ -2,8 +2,20 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import CareerJourney from "../components/CareerJourney.astro";
 import { getProjects, mapProject } from "../lib/notion";
-const rawProjects = await getProjects();
-const projects = rawProjects.map(mapProject);
+
+let projects: {
+    name: string;
+    description: string;
+    url: string;
+    tech: string[];
+}[] = [];
+
+try {
+    const rawProjects = await getProjects();
+    projects = rawProjects.map(mapProject);
+} catch (e) {
+    console.error("Failed to fetch projects from Notion:", e);
+}
 ---
 
 <BaseLayout title="My Portfolio">
@@ -33,24 +45,37 @@ const projects = rawProjects.map(mapProject);
     <section>
         <h2>Projects</h2>
         {
-            projects.map((project: any) => (
+            projects.map((project) => (
                 <div>
-                    <a
-                        href={project.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        {project.name}
-                    </a>
+                    {project.url ? (
+                        <a
+                            href={project.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            {project.name}
+                        </a>
+                    ) : (
+                        <span>{project.name}</span>
+                    )}
                     <p>{project.description}</p>
-                    <p>{project.tech.join(", ")}</p>
+                    <p>
+                        {project.tech.length > 0 && (
+                            <p>{project.tech.join(", ")}</p>
+                        )}
+                    </p>
                 </div>
             ))
         }
     </section>
     <section>
         <h2>Contact</h2>
-        <form name="portfolio-contact" method="POST" data-netlify="true" action="/thank-you">
+        <form
+            name="portfolio-contact"
+            method="POST"
+            data-netlify="true"
+            action="/thank-you"
+        >
             <input type="hidden" name="form-name" value="portfolio-contact" />
             <label>
                 Name
@@ -75,7 +100,7 @@ const projects = rawProjects.map(mapProject);
             class="text-blue-500 hover:underline">GitHub</a
         >
         <a
-            href="https://www.linkedin.com/in/madaliniosu/"
+            href="https://linkedin.com/in/madaliniosu/"
             target="_blank"
             rel="noopener noreferrer"
             class="text-blue-500 hover:underline ml-4">LinkedIn</a

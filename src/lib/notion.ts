@@ -23,11 +23,12 @@ export async function getProjects() {
   return response.results;
 }
 
-export function mapProject(result: any){
-  return {
-    name : result.properties?.Name?.title?.[0]?.plain_text || '',
-    description: result.properties?.Description?.rich_text?.[0]?.plain_text || '',
-    url: result.properties?.URL?.url || '',
-    tech: result.properties?.Tech?.multi_select?.map((t: any) => t.name) || [],
-  }
+export function mapProject(result: any) {
+    return {
+        name: result.properties?.Name?.title?.[0]?.plain_text || '',
+        description: result.properties?.Description?.rich_text?.[0]?.plain_text || '',
+        github: result.properties?.URL?.url || '',
+        live: result.properties?.Live?.url || '',
+        tech: result.properties?.Tech?.multi_select?.map((t: any) => t.name) ?? [],
+    }
 }

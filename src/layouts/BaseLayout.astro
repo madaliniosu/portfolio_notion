@@ -8,7 +8,6 @@ const path = Astro.url.pathname;
     <head>
         <meta charset="utf-8" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <link rel="icon" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width" />
         <meta name="generator" content={Astro.generator} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -32,11 +31,9 @@ const path = Astro.url.pathname;
                     </h1>
                 </a>
                 <p class="text-accent mt-1 text-sm cursor">
-                    Frontend Developer
+                    Frontend Developer · AI-Focused
                 </p>
-                <p class="text-muted mt-1 text-sm">
-                    Product thinker · Remote from Spain
-                </p>
+                <p class="text-muted mt-1 text-sm">Sales → PM → Dev</p>
                 <nav class="mt-10 hidden lg:flex flex-col gap-4">
                     <a
                         href="#about"
@@ -60,7 +57,7 @@ const path = Astro.url.pathname;
                     >
                 </nav>
             </div>
-            <div class="flex gap-5 mt-8">
+            <div class="flex gap-5 mt-8. items-center">
                 <a
                     href="https://github.com/madaliniosu"
                     target="_blank"
@@ -82,20 +79,53 @@ const path = Astro.url.pathname;
                     class="text-sm text-muted hover:text-accent transition-colors"
                     >CV</a
                 >
-                <a
+                <!-- <a
                     href="mailto:iosu.gm@gmail.com"
                     class="text-sm text-muted hover:text-accent transition-colors"
-                    >Email</a
-                >
+                    >Email: iosu.gm@gmail.com</a
+                > -->
+                <div class="relative group">
+                    <button
+                        id="copy-email"
+                        class="text-sm text-muted hover:text-accent transition-colors cursor-pointer"
+                    >
+                        iosu.gm@gmail.com
+                    </button>
+                    <span
+                        class="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 flex items-center gap-1 whitespace-nowrap rounded bg-navy-light px-2 py-1 text-xs text-text opacity-0 transition-opacity group-hover:opacity-100"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-3 w-3"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                        >
+                            <rect
+                                x="9"
+                                y="9"
+                                width="13"
+                                height="13"
+                                rx="2"
+                                ry="2"></rect>
+                            <path
+                                d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                            ></path>
+                        </svg>
+                        Copy
+                    </span>
+                </div>
             </div>
         </aside>
-        <main class="lg:w-2/3 lg:overflow-y-auto p-8 lg:p-12 lg:h-screen">
+        <main class="lg:w-2/3 p-8 lg:p-12">
             <slot />
         </main>
     </body>
 </html>
 
 <script>
+    // Highlight active section button in the navigation as the user scrolls through the page
     const sections = document.querySelectorAll("section[id]");
     const navLinks = document.querySelectorAll('nav a[href^="#"]');
 
@@ -117,5 +147,18 @@ const path = Astro.url.pathname;
         },
     );
 
+    // Copy email to clipboard when clicking the email link in the contact section
     sections.forEach((section) => observer.observe(section));
+
+    const copyEmail = document.getElementById("copy-email");
+    if (copyEmail) {
+        copyEmail.addEventListener("click", () => {
+            navigator.clipboard.writeText("iosu.gm@gmail.com");
+            copyEmail.textContent = "Copied!";
+            setTimeout(
+                () => (copyEmail.textContent = "iosu.gm@gmail.com"),
+                2000,
+            );
+        });
+    }
 </script>

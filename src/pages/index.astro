@@ -9,11 +9,12 @@ let projects: {
     github: string;
     live: string;
     tech: string[];
+    order: number;
 }[] = [];
 
 try {
     const rawProjects = await getProjects();
-    projects = rawProjects.map(mapProject);
+    projects = rawProjects.map(mapProject).sort((a, b) => a.order - b.order);
 } catch (e) {
     console.error("Failed to fetch projects from Notion:", e);
 }
@@ -27,18 +28,13 @@ try {
             About
         </h2>
         <p class="text-muted leading-relaxed">
-            I'm a frontend developer based in Pego, Spain — building clean,
-            functional web applications with a strong eye for design and a
-            product mindset built over years of owning a roadmap end-to-end. My
-            path wasn't linear: I started in B2B sales, moved into product
-            management, then taught myself to code and made the switch to
-            engineering. That background means I think about products, not just
-            components — I understand why a feature exists before I build it. I
-            work primarily with Angular and React / Next.js, and I'm comfortable
-            across the full stack: auth, payments, APIs, databases. I build
-            things for real users, not just demos. Open to remote roles in
-            frontend development, AI-assisted product engineering, or anything
-            that sits at the intersection of code and product thinking.
+            Frontend developer with a background in customer-facing sales and
+            product management. Previous roles across different industries
+            provided hands-on experience with user communication, cross-team
+            coordination, and product ownership — fundamentals that translate
+            directly into how I approach building software. Interested in
+            AI-assisted development and actively building with tools like the
+            Claude and OpenAI APIs.
         </p>
     </section>
 

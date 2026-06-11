@@ -1,0 +1,45 @@
+---
+
+---
+
+<section id="contact" class="mb-24">
+    <h2 class="text-sm font-bold uppercase tracking-widest text-accent mb-6">
+        Contact
+    </h2>
+    <form
+        name="portfolio-contact"
+        method="POST"
+        data-netlify="true"
+        action="/thank-you"
+        class="flex flex-col gap-4"
+    >
+        <input type="hidden" name="form-name" value="portfolio-contact" />
+        <input
+            type="text"
+            name="name"
+            placeholder="Name"
+            required
+            class="bg-navy-light border border-navy-light rounded-lg px-4 py-3 text-text placeholder:text-muted focus:outline-none focus:border-accent transition-colors"
+        />
+        <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            required
+            class="bg-navy-light border border-navy-light rounded-lg px-4 py-3 text-text placeholder:text-muted focus:outline-none focus:border-accent transition-colors"
+        />
+        <textarea
+            name="message"
+            placeholder="Message"
+            required
+            rows="5"
+            class="bg-navy-light border border-navy-light rounded-lg px-4 py-3 text-text placeholder:text-muted focus:outline-none focus:border-accent transition-colors resize-none"
+        ></textarea>
+        <button
+            type="submit"
+            class="self-start border border-accent text-accent px-6 py-2 rounded-lg hover:bg-accent hover:text-navy transition-colors"
+        >
+            Send
+        </button>
+    </form>
+</section>

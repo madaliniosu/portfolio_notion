@@ -1,0 +1,31 @@
+---
+import { getProjects, mapProject } from "../lib/notion";
+import ProjectCard from "./ProjectCard.astro";
+import type { Project } from "../types";
+let projects: Project[] = [];
+
+try {
+    const rawProjects = await getProjects();
+    projects = rawProjects.map(mapProject).sort((a, b) => a.order - b.order);
+} catch (e) {
+    console.error("Failed to fetch projects from Notion:", e);
+}
+---
+
+<section id="projects" class="mb-24">
+    <h2 class="text-sm font-bold uppercase tracking-widest text-accent mb-6">
+        Projects
+    </h2>
+    <div class="flex flex-col gap-6">
+        {
+            projects.map((project) => (
+                <ProjectCard
+                    isLive={project.live}
+                    name={project.name}
+                    description={project.description}
+                    tech={project.tech}
+                />
+            ))
+        }
+    </div>
+</section>

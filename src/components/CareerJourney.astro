@@ -1,59 +1,46 @@
 ---
-
+import CareerItem from "./CareerItem.astro";
 ---
 
-<div class="flex flex-col gap-10">
-    <div>
-        <p class="text-xs text-muted uppercase tracking-widest mb-1">
-            2023 – 2025
-        </p>
-        <h3 class="text-text font-semibold">
-            Frontend Developer <span class="text-accent">· REVital</span>
-        </h3>
-        <p class="text-muted mt-2 leading-relaxed text-sm">
-            Part of a cross-functional team building a heart monitoring
+<section id="career" class="mb-24">
+    <h2 class="text-sm font-bold uppercase tracking-widest text-accent mb-6">
+        Career
+    </h2>
+
+    <div class="flex flex-col gap-10">
+        <CareerItem
+            time="2023 - 2025"
+            position="Frontend Developer"
+            company="REVital"
+            description="Part of a cross-functional team building a heart monitoring
             application that processed real-time data from smart devices and
             wearables. Shipped production interfaces from Figma designs, built a
             client-facing partner management platform, and delivered WordPress
-            projects for external clients alongside core product work.
-        </p>
-    </div>
-
-    <div>
-        <p class="text-xs text-muted uppercase tracking-widest mb-1">
-            2021 – 2023
-        </p>
-        <h3 class="text-text font-semibold">
-            Product Manager <span class="text-accent">· Convergent365</span>
-        </h3>
-        <p class="text-muted mt-2 leading-relaxed text-sm">
-            Product Manager at Convergent365, a financial management SaaS for
+            projects for external clients alongside core product work."
+        />
+        <CareerItem
+            time="2021 – 2023"
+            position="Product Manager"
+            company="Convergent365"
+            description="Product Manager at Convergent365, a financial management SaaS for
             Romanian entrepreneurs and business managers. Owned the roadmap for
             a platform that helped SMB owners track performance, plan budgets,
             and compare financials across scenarios. Worked across business,
             design, and development teams — translating complex financial
             workflows into product specs and shipping decisions under competing
-            priorities.
-        </p>
-    </div>
-
-    <div>
-        <p class="text-xs text-muted uppercase tracking-widest mb-1">
-            2018 – 2021
-        </p>
-        <h3 class="text-text font-semibold">
-            Customer Care & Sales <span class="text-accent"
-                >· Orange Romania</span
-            >
-        </h3>
-        <p class="text-muted mt-2 leading-relaxed text-sm">
-            Started in Customer Care, promoted to Expert Solution Sales
+            priorities."
+        />
+        <CareerItem
+            time="2018 – 2021"
+            position="Customer Care & Sales"
+            company="Orange"
+            description="Started in Customer Care, promoted to Expert Solution Sales
             Consultant within 11 months. Managed a mixed portfolio of B2B and
             B2C clients — selling mobile, internet, and technology solutions
             from Orange Romania's business catalogue. Developed the ability to
             listen past what customers said to understand what they actually
             needed, and built the communication and negotiation habits that now
-            shape how I approach users and stakeholders as a developer.
-        </p>
+            shape how I approach users and stakeholders as a developer."
+        />
     </div>
-</div>
+</section>

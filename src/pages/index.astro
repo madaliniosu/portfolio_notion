@@ -1,149 +1,17 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import CareerJourney from "../components/CareerJourney.astro";
-import { getProjects, mapProject } from "../lib/notion";
-
-let projects: {
-    name: string;
-    description: string;
-    github: string;
-    live: string;
-    tech: string[];
-    order: number;
-}[] = [];
-
-try {
-    const rawProjects = await getProjects();
-    projects = rawProjects.map(mapProject).sort((a, b) => a.order - b.order);
-} catch (e) {
-    console.error("Failed to fetch projects from Notion:", e);
-}
+import AboutSection from "../components/AboutSection.astro";
+import ContactForm from "../components/ContactForm.astro";
+import Projects from "../components/Projects.astro";
 ---
 
 <BaseLayout title="My Portfolio">
-    <section id="about" class="mb-24">
-        <h2
-            class="text-sm font-bold uppercase tracking-widest text-accent mb-6"
-        >
-            About
-        </h2>
-        <p class="text-muted leading-relaxed">
-            Frontend developer with a background in customer-facing sales and
-            product management. Previous roles across different industries
-            provided hands-on experience with user communication, cross-team
-            coordination, and product ownership — fundamentals that translate
-            directly into how I approach building software. Interested in
-            AI-assisted development and actively building with tools like the
-            Claude and OpenAI APIs.
-        </p>
-    </section>
+    <AboutSection />
 
-    <section id="career" class="mb-24">
-        <h2
-            class="text-sm font-bold uppercase tracking-widest text-accent mb-6"
-        >
-            Career
-        </h2>
-        <CareerJourney />
-    </section>
+    <Projects />
 
-    <section id="projects" class="mb-24">
-        <h2
-            class="text-sm font-bold uppercase tracking-widest text-accent mb-6"
-        >
-            Projects
-        </h2>
-        <div class="flex flex-col gap-6">
-            {
-                projects.map((project) =>
-                    project.live ? (
-                        <a
-                            href={project.live}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="block border border-navy-light rounded-lg p-5 hover:border-accent transition-colors duration-200"
-                        >
-                            <span class="font-semibold text-text">
-                                {project.name}
-                            </span>
-                            <p class="text-muted text-sm mt-2 leading-relaxed">
-                                {project.description}
-                            </p>
-                            {project.tech.length > 0 && (
-                                <div class="flex flex-wrap gap-2 mt-3">
-                                    {project.tech.map((t) => (
-                                        <span class="text-xs text-accent border border-accent/30 rounded-full px-3 py-1">
-                                            {t}
-                                        </span>
-                                    ))}
-                                </div>
-                            )}
-                        </a>
-                    ) : (
-                        <div class="border border-navy-light rounded-lg p-5">
-                            <span class="font-semibold text-text">
-                                {project.name}
-                            </span>
-                            <p class="text-muted text-sm mt-2 leading-relaxed">
-                                {project.description}
-                            </p>
-                            {project.tech.length > 0 && (
-                                <div class="flex flex-wrap gap-2 mt-3">
-                                    {project.tech.map((t) => (
-                                        <span class="text-xs text-accent border border-accent/30 rounded-full px-3 py-1">
-                                            {t}
-                                        </span>
-                                    ))}
-                                </div>
-                            )}
-                        </div>
-                    ),
-                )
-            }
-        </div>
-    </section>
+    <CareerJourney />
 
-    <section id="contact" class="mb-24">
-        <h2
-            class="text-sm font-bold uppercase tracking-widest text-accent mb-6"
-        >
-            Contact
-        </h2>
-        <form
-            name="portfolio-contact"
-            method="POST"
-            data-netlify="true"
-            action="/thank-you"
-            class="flex flex-col gap-4"
-        >
-            <input type="hidden" name="form-name" value="portfolio-contact" />
-            <input
-                type="text"
-                name="name"
-                placeholder="Name"
-                required
-                class="bg-navy-light border border-navy-light rounded-lg px-4 py-3 text-text placeholder:text-muted focus:outline-none focus:border-accent transition-colors"
-            />
-            <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                required
-                class="bg-navy-light border border-navy-light rounded-lg px-4 py-3 text-text placeholder:text-muted focus:outline-none focus:border-accent transition-colors"
-            />
-            <textarea
-                name="message"
-                placeholder="Message"
-                required
-                rows="5"
-                class="bg-navy-light border border-navy-light rounded-lg px-4 py-3 text-text placeholder:text-muted focus:outline-none focus:border-accent transition-colors resize-none"
-            ></textarea>
-            <button
-                type="submit"
-                class="self-start border border-accent text-accent px-6 py-2 rounded-lg hover:bg-accent hover:text-navy transition-colors"
-            >
-                Send
-            </button>
-        </form>
-    </section>
+    <ContactForm />
 </BaseLayout>

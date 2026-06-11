@@ -1,0 +1,28 @@
+---
+const { live, name, description, tech = []} = Astro.props;
+---
+
+<a
+    href={live}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="block border border-navy-light rounded-lg p-5 hover:border-accent transition-colors duration-200"
+>
+    <span class="font-semibold text-text">
+        {name}
+    </span>
+    <p class="text-muted text-sm mt-2 leading-relaxed">
+        {description}
+    </p>
+    {
+        tech.length > 0 && (
+            <div class="flex flex-wrap gap-2 mt-3">
+                {tech.map((t:string) => (
+                    <span class="text-xs text-accent border border-accent/30 rounded-full px-3 py-1">
+                        {t}
+                    </span>
+                ))}
+            </div>
+        )
+    }
+</a>

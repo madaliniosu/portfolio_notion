@@ -29,7 +29,7 @@ export function mapProject(result: any) {
         name: result.properties?.Name?.title?.[0]?.plain_text || "",
         description:
             result.properties?.Description?.rich_text?.[0]?.plain_text || "",
-        github: result.properties?.URL?.url || "",
+        github: result.properties?.Github?.url || "",
         live: result.properties?.Live?.url || "",
         tech:
             result.properties?.Tech?.multi_select?.map((t: any) => t.name) ??

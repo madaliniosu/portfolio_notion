@@ -10,6 +10,8 @@ try {
 } catch (e) {
     console.error("Failed to fetch projects from Notion:", e);
 }
+
+
 ---
 
 <section id="projects" class="mb-24">
@@ -21,6 +23,7 @@ try {
             projects.map((project) => (
                 <ProjectCard
                     isLive={project.live}
+                    github={project.github}
                     name={project.name}
                     description={project.description}
                     tech={project.tech}
